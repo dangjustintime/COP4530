@@ -1,0 +1,39 @@
+**********FUNCTION*************
+template <typename T>
+void List<T>::reverse() {
+	List<T> reverseList;
+	reverseList.init();
+	while(!this->empty()) {
+		reverseList.push_front(this->back());
+		this->pop_back();
+	}
+	while(!reverseList.empty()) {
+		this->push_front(reverseList.front());
+		reverseList.pop_front();
+	}
+}
+
+*********VALUES*********
+2 = {
+	List<T> reverseList;
+	reverseList.init();
+}
+
+2n = {
+	while(!this->empty()) {
+		reverseList.push_front(this->back());
+		this->pop_back();
+	}
+}
+
+2n = {
+	while(!reverseList.empty()) {
+		this->push_front(reverseList.front());
+		reverseList.pop_front();
+	}
+}
+
+**********TIME COMPLEXITY**********
+O(n) = 2 + 2n + 2n
+O(n) = 2 + 4n
+O(n) = n

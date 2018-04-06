@@ -1,0 +1,25 @@
+++++++++++++++++++++++++++++++++++FUNCTION++++++++++++++++++++++++++++++
+//delete all elements from the stack
+template <typename T>
+void Stack<T>::clear() {
+	for(int i = 0; i < theSize; i++) {
+		stackList.pop_back();
+	}
+	theSize = 0;
+}
+
++++++++++++++++++++++++VALUES++++++++++++++++++++
+n = {
+	for(int i = 0; i < theSize; i++) {
+		stackList.pop_back();
+	}
+}
+
+1 = {
+	theSize = 0;
+}
+
++++++++++++++++++++++++TIME COMPLEXITY++++++++++++++++++++
+O(n) = n + 1
+O(n) = n
+

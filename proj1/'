@@ -1,0 +1,188 @@
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <map>
+#include <cctype>
+#include <utility>
+#include <algorithm>
+
+enum SequenceType {CHARACTER, WORD, NUMBER, OTHER};
+
+class compareSequence {
+	public:
+		bool operator() (const std::pair<std::string, std::pair <std::string, int> > & pair1, const std::pair<std::string, std::pair <std::string, int> > & pair2) const {
+			return pair1.second.second < pair2.second.second;
+		}
+};
+
+//function prototype
+SequenceType getSequenceType(const std::string & seq);
+int main() {
+	std::map<std::string, std::pair <std::string, int> > charMap;
+	std::map<std::string, std::pair <std::string, int> > wordMap;
+	std::map<std::string, std::pair <std::string, int> > numberMap;
+	std::vector<std::pair <std::string, int> > mostCharVector;
+	std::vector<std::pair <std::string, int> > mostWordVector;
+	std::vector<std::pair <std::string, int> > mostNumberVector;
+	std::string text;
+	std::string sequence;
+	std::string charSequence;
+	char ch;	
+
+	std::cout << "Reading text..." << std::endl;
+	
+	
+	while(std::cin.get(ch)){
+		text+=ch;
+		//if(std::cin.eof() || !std::cin.good()) break;
+	};
+
+	std::cout << text <<std::endl;
+	
+	//comvert text string into sequences for maps
+	for(auto itr1 = text.begin(); itr1 != text.end(); ++itr1) {
+		charSequence = *itr1;
+		if(charMap.find(charSequence) == charMap.end()) {
+			charMap.insert(std::pair<std::string, std::pair<std::string, int> >(charSequence, std::make_pair(charSequence, 1)));
+		} else {
+			int count = charMap[charSequence].second;
+			++count;
+			charMap.erase(charSequence);
+			charMap.insert(std::pair<std::string, std::pair<std::string, int> >(charSequence, std::make_pair(charSequence, count)));
+		}
+		charSequence.clear();
+
+		if(std::isalnum(*itr1)) {
+			SequenceType type;
+			auto tempItr = itr1;
+			
+			if(std::isdigit(*itr1)) {
+				for(auto itr2 = itr1; std::isdigit(*itr2); ++itr2) {
+					sequence+= *itr2;
+					tempItr = itr2;
+				}
+				type = NUMBER;
+			} else if(std::isalpha(*itr1)) {
+				for(auto itr2 = itr1; std::isalpha(*itr2); ++itr2) {
+					sequence+= *itr2;
+					tempItr = itr2;
+				}
+				type = getSequenceType(sequence);
+			}
+		
+
+			if(type == WORD) {
+				if(wordMap.find(sequence) == wordMap.end()) {
+					wordMap.insert(std::pair<std::string, std::pair<std::string, int> >(sequence, std::make_pair(sequence, 1)));
+				} else {
+					int count = wordMap[sequence].second;
+					++count;
+					wordMap.erase(sequence);
+					wordMap.insert(std::pair<std::string, std::pair<std::string, int> >(sequence, std::make_pair(sequence, count)));
+					
+				}
+			} else if(type == NUMBER) {
+				if(numberMap.find(sequence) == wordMap.end()) {
+					numberMap.insert(std::pair<std::string, std::pair<std::string, int> >(sequence, std::make_pair(sequence, 1)));
+				} else {
+					int count = numberMap[sequence].second;
+					++count;
+					numberMap.erase(sequence);
+					numberMap.insert(std::pair<std::string, std::pair<std::string, int> >(sequence, std::make_pair(sequence, count)));
+				}
+			}
+			sequence.clear();
+			itr1 = tempItr;
+		}
+	}
+
+	auto charItr = charMap.begin();
+	auto wordItr = wordMap.begin();
+	auto numberItr = numberMap.begin(); 
+
+	for(int i = 0; i < 10; ++i) {
+		charItr = std::max_element(charMap.begin(), charMap.end(), compareSequence{});
+		std::pair<std::string, int> tempPair = charItr->second;
+		mostCharVector.push_back(tempPair);
+		if(!charMap.empty()) {
+			charMap.erase(charItr);
+		} else {
+			break;
+		}
+	}
+		
+	for(int i = 0; i < 10; ++i) {
+		wordItr = std::max_element(wordMap.begin(), wordMap.end(), compareSequence{});
+		std::pair<std::string, int> tempPair = wordItr->second;
+		mostWordVector.push_back(tempPair);
+		if(!wordMap.empty()) {
+			wordMap.erase(wordItr);
+		} else {
+			break;
+		}
+	}
+
+	for(int i = 0; i < 10; ++i) {
+		numberItr = std::max_element(numberMap.begin(), numberMap.end(), compareSequence{});
+		std::pair<std::string, int> tempPair = numberItr->second;
+		mostNumberVector.push_back(tempPair);	
+		if(!numberMap.empty()) {
+			numberMap.erase(numberItr);
+		} else {
+			break;
+		}
+	}
+
+	std::cout << text << std::endl;
+
+	std::cout << "*****MOST COMMON CHARACTERS*****" << std::endl;
+	for(auto itr = mostCharVector.begin(); itr != mostCharVector.end(); ++itr) {
+		std::cout << itr->first  << " " << itr->second << std::endl;
+	}
+	
+	std::cout << "*****MOST COMMON WORDS*****" << std::endl;
+	for(auto itr = mostWordVector.begin(); itr != mostWordVector.end(); ++itr) {
+		std::cout << itr->first << " " << itr->second << std::endl;
+	}
+
+	std::cout << "*****MOST COMMON NUMBERS*****" << std::endl;
+	for(auto itr = mostNumberVector.begin(); itr != mostNumberVector.end(); ++itr) {
+		std::cout << itr->first << " " << itr->second << std::endl;
+	}
+	return 0;
+}
+
+//returns type of sequence a string is
+SequenceType getSequenceType(const std::string & seq) {
+	SequenceType type;
+	if(std::isalpha(seq[0])) {
+		for(int i = 0; i < seq.size(); i++) {
+			if(std::isalpha(seq[i])) {
+				type = WORD;
+			} else {
+				type = OTHER;
+				break;
+			}
+		}
+		if(type == WORD) {
+			//std::cout << "WORD" << std::endl;
+			return type;
+		}
+	} else if(std::isdigit(seq[0])) {
+		for(int i = 0; i < seq.size(); i++) {
+			if(std::isdigit(seq[i])) {
+				type = NUMBER;
+			} else {
+				type = OTHER;
+				break;
+			}
+		}
+		if(type == NUMBER) {
+			//std::cout << "NUMBER" << std::endl;
+			return type;
+		}
+	}
+	//std::cout << "OTHER" << std::endl;
+	return type;
+}
+
