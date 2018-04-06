@@ -16,7 +16,9 @@ class BET {
     bool buildFromPostfix(const std::string postfix);
     
     // insertion and deletion
-    void makeEmpty();
+    void makeEmpty() {
+      makeEmpty(root);
+    };
     void insert(const T & data);
     void insert(T && data);
     void remove(const T & data);
@@ -75,14 +77,13 @@ class BET {
         insert(data, node->right);
       }
     }
-    // deletion
-    void remove(const T & data, BinaryNode * node) {
-      if (node->left == nullptr && node->right == nullptr) {
-        
-      }
-    }
-    void printInfixExpression(BinaryNode * n);
-    void makeEmpty(BinaryNode * n);
+    void printInfixExpression(BinaryNode * node);
+    // lazy deletion
+    void makeEmpty(BinaryNode * & node) {
+      node = nullptr;
+      node->left = nullptr;
+      node->right = nullptr;
+    };
     BinaryNode * clone(BinaryNode) const;
     void printPostfixExpression(BinaryNode * n);
     size_t size(BinaryNode * t);
