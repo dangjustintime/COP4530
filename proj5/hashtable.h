@@ -36,7 +36,7 @@ class HashTable {
     unsigned long prime_below(unsigned long n);
     void setPrimes(std::vector<unsigned long> & vprimes);
     // member data
-    std::vector<std::list<V>> theList;
+    std::vector<std::list<V>> theLists;
     size_t currentSize;
 };
 

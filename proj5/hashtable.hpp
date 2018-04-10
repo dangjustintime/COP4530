@@ -54,15 +54,30 @@ void HashTable<K, V>::setPrimes(std::vector<unsigned long>& vprimes)
     }
 }
 
+// private interface
 // myhash
 template <typename K, typename V>
 size_t HashTable<K, V>::myhash(const K & k) {
   static std::hash<K> hf;
   return hf(k) % this->theList.size();
 }
+// makeEmpty
+template <typename K, typename V>
+void HashTable<K, V>::makeEmpty() {
+  for(auto & thisList: theLists) {
+    thisList.clear();
+  }
+}
+// contains
+template <typename K, typename V>
+bool HashTable<K, V>::contains(const K & k) {
+  auto & whichList = theLists[myhash(k)];
+  return find(begin(whichList), end(whichList), k) != end(whichList);
+}
 
+// public interface
 // constructor
 template <typename K, typename V>
 HashTable<K, V>::HashTable(size_t size) : currentSize{size} {
-  theList(size);
+  theLists(size);
 }
