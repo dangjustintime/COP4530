@@ -54,6 +54,15 @@ void HashTable<K, V>::setPrimes(std::vector<unsigned long>& vprimes)
     }
 }
 
+// myhash
+template <typename K, typename V>
+size_t HashTable<K, V>::myhash(const K & k) {
+  static std::hash<K> hf;
+  return hf(k) % this->theList.size();
+}
+
 // constructor
 template <typename K, typename V>
-HashTable<K, V>::HashTable(size_t size) : theSize{size} {}
+HashTable<K, V>::HashTable(size_t size) : currentSize{size} {
+  theList(size);
+}

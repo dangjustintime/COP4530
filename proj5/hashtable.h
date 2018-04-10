@@ -1,8 +1,8 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+#include <functional>
 #include <iostream>
-
 #include <list>
 #include <vector>
 
@@ -37,7 +37,7 @@ class HashTable {
     void setPrimes(std::vector<unsigned long> & vprimes);
     // member data
     std::vector<std::list<V>> theList;
-    size_t theSize;
+    size_t currentSize;
 };
 
 #include "hashtable.hpp"
