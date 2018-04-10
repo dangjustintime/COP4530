@@ -1,3 +1,5 @@
+// TODO: implement rehash function
+
 // returns largest prime number <= n or zero if input is too large
 // This is likely to be more efficient than prime_above(), because
 // it only needs a vector of size n
@@ -73,6 +75,11 @@ template <typename K, typename V>
 bool HashTable<K, V>::contains(const K & k) {
   auto & whichList = theLists[myhash(k)];
   return find(begin(whichList), end(whichList), k) != end(whichList);
+}
+// rehash
+template <typename K, typename V>
+void HashTable<K, V>::rehash() {
+  
 }
 
 // public interface
