@@ -21,7 +21,8 @@ class HashTable {
     ~HashTable();
     bool contains(const K & k);
     bool match(const std::pair<K,V> & kv) const;
-    bool insert(const std::pair<K,V> && kv);
+    bool insert(const std::pair<K,V> & kv);
+    bool insert(std::pair<K,V> && kv);
     bool remove(const K & k);
     void clear();
     bool load(const char * filename);
