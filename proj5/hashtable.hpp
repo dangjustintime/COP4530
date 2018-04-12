@@ -79,7 +79,18 @@ bool HashTable<K, V>::contains(const K & k) {
 // rehash
 template <typename K, typename V>
 void HashTable<K, V>::rehash() {
-  
+  std::vector<std::list<V>> oldLists = theLists;
+  theLists.resize(prime_below(2 * theLists.size()));
+  for (auto & thisList : theLists) {
+    thisList.clear();
+  }
+  currentSize = 0;
+  for (auto thisList : oldLists) {
+    for (auto & x : thisList) {
+      insert(std::move(x));
+    }
+  }
+
 }
 
 // public interface
