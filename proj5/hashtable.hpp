@@ -148,9 +148,16 @@ bool HashTable<K, V>::insert(std::pair<K, V> && kv) {}
 // remove
 // delete the key k and the corresponding value if it is in the hash
 // table. Return true if k is deleted, return false otherwise (i.e.,
-// if key k is not in the hash table).)
+// if ikey k is not in the hash table).)
 template <typename K, typename V>
-bool HashTable<K, V>::remove(const K & k) {}
+bool HashTable<K, V>::remove(const K & k) {
+  auto & whichList = theLists[myhash(k)];
+  auto itr = find(begin(whichList), end(whichList), k);
+  if (itr == end(whichList)) return false;
+  whichList.erase(itr);
+  --currentSize;
+  return true;
+}
 
 // clear
 // delete all elements in the hash table
