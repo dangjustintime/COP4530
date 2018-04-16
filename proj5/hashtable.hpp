@@ -1,4 +1,3 @@
-// TODO: finish implementing load function
 // private interface
 
 // makeEmpty
@@ -187,14 +186,12 @@ void HashTable<K, V>::clear() { makeEmpty(); }
 template <typename K, typename V>
 bool HashTable<K, V>::load(const char * filename) {
   std::string line;
-  char * cline;
   std::pair<K, V> kv;
   std::ifstream myfile(filename);
   myfile.open(filename);
-  
-
-  
-
+  while (myfile >> kv.first >> kv.second) {
+    insert(kv);
+  }
   myfile.close();
 }
 
