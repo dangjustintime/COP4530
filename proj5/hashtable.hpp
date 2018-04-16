@@ -139,11 +139,28 @@ bool HashTable<K, V>::match(const std::pair<K, V> & kv) const {
 // with kv. Return true if kv is inserted or the value is updated;
 // return false otherwise (i.e., if kv is in the hash table).)
 template <typename K, typename V>
-bool HashTable<K, V>::insert(const std::pair<K, V> & kv) {}
+bool HashTable<K, V>::insert(const std::pair<K, V> & kv) {
+  auto & whichList = theLists[myhash(kv.first)];
+  if (find(begin(whichList), end(whichList), kv.second) != end(whichList)) {
+    return false;
+  }
+  whichList.push_back(kv.second);
+  if (++currentSize > theLists.size()) rehash();
+  return true;
+}
 
 // insert (move version)
 template <typename K, typename V>
-bool HashTable<K, V>::insert(std::pair<K, V> && kv) {}
+bool HashTable<K, V>::insert(std::pair<K, V> && kv) {
+  auto & whichList = theLists[myhash(std::move(kv.first))];
+  if (find(begin(whichList), end(whichList), std::move(kv.second))
+      != end(whichList)) {
+       return false;
+  }
+  whichList.push_back(std::move(kv.first));
+  if (++currentSize > theLists.size()) rehash();
+  return true;
+}
 
 // remove
 // delete the key k and the corresponding value if it is in the hash
