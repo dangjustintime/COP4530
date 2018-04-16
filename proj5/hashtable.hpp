@@ -1,3 +1,4 @@
+// TODO: finish implementing load function
 // private interface
 
 // makeEmpty
@@ -176,7 +177,6 @@ bool HashTable<K, V>::remove(const K & k) {
 
 // clear
 // delete all elements in the hash table
-
 template <typename K, typename V>
 void HashTable<K, V>::clear() { makeEmpty(); }
 
@@ -185,7 +185,18 @@ void HashTable<K, V>::clear() { makeEmpty(); }
 // table. In the file, each line contains a single pair of key and
 // value, separated by a white space.
 template <typename K, typename V>
-bool HashTable<K, V>::load(const char * filename) {}
+bool HashTable<K, V>::load(const char * filename) {
+  std::string line;
+  char * cline;
+  std::pair<K, V> kv;
+  std::ifstream myfile(filename);
+  myfile.open(filename);
+  
+
+  
+
+  myfile.close();
+}
 
 // dump
 // display all entries in the hash table. If an entry contains

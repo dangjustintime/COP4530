@@ -1,9 +1,13 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
+#include <cstdio>
+#include <cstring>
+#include <fstream>
 #include <functional>
 #include <iostream>
 #include <list>
+#include <sstream>
 #include <vector>
 
 namespace cop4530 {
