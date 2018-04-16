@@ -102,14 +102,16 @@ void HashTable<K, V>::setPrimes(std::vector<unsigned long>& vprimes)
 // prime_below() is a private member function of the HashTable and
 // provided to you.)))
 template <typename K, typename V>
-HashTable<K, V>::HashTable(size_t size) : currentSize{size} {
-  theLists(size);
+HashTable<K, V>::HashTable(size_t size) : currentSize{ prime_below(size) } {
+  makeEmpty();
 }
 
 // destructor
 // Delete all elements in hash table.
 template <typename K, typename V>
-HashTable<K, V>::~HashTable() {}
+HashTable<K, V>::~HashTable() {
+  makeEmpty();
+}
 
 // contains
 // check if key k is in the hash table.
@@ -122,7 +124,13 @@ bool HashTable<K, V>::contains(const K & k) {
 // match
 // check if key-value pair is in the hash table.
 template<typename K, typename V>
-bool HashTable<K, V>::match(const std::pair<K, V> & kv) const {}
+bool HashTable<K, V>::match(const std::pair<K, V> & kv) const {
+  auto & thisList = theLists[myhash(kv.first)];
+  for (auto & itr : thisList) {
+    if (kv.second == *itr) return true;
+  }
+  return false;
+}
 
 // insert
 // add  the key-value pair kv into the hash table. Don't add if kv
@@ -146,6 +154,7 @@ bool HashTable<K, V>::remove(const K & k) {}
 
 // clear
 // delete all elements in the hash table
+
 template <typename K, typename V>
 void HashTable<K, V>::clear() {}
 
