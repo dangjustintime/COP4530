@@ -109,9 +109,7 @@ HashTable<K, V>::HashTable(size_t size) : currentSize{ prime_below(size) } {
 // destructor
 // Delete all elements in hash table.
 template <typename K, typename V>
-HashTable<K, V>::~HashTable() {
-  makeEmpty();
-}
+HashTable<K, V>::~HashTable() { makeEmpty(); }
 
 // contains
 // check if key k is in the hash table.
@@ -180,7 +178,7 @@ bool HashTable<K, V>::remove(const K & k) {
 // delete all elements in the hash table
 
 template <typename K, typename V>
-void HashTable<K, V>::clear() {}
+void HashTable<K, V>::clear() { makeEmpty(); }
 
 // load
 // load the content of the file with name filename into the hash
@@ -199,7 +197,7 @@ void HashTable<K, V>::dump() {}
 // size
 // return the number of elements in the hash table
 template <typename K, typename V>
-size_t HashTable<K, V>::size() {}
+size_t HashTable<K, V>::size() { return currentSize; }
 
 // write to file
 // write all elements in the hash table into a file with name filename.
