@@ -200,7 +200,15 @@ bool HashTable<K, V>::load(const char * filename) {
 // multiple key-value pairs, separate them by a semicolon character (:)
 // (see the provided executable for the exact output format).))
 template <typename K, typename V>
-void HashTable<K, V>::dump() {}
+void HashTable<K, V>::dump() {
+  for (int i = 0; i < theLists.size(); i++) {
+    std::cout << i << "\t";
+    for (auto && itr : theLists[i]) {
+      std::cout << *itr << ":";
+    }
+    std::cout << std::endl;
+  }
+}
 
 // size
 // return the number of elements in the hash table
