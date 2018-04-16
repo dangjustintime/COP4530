@@ -189,10 +189,12 @@ bool HashTable<K, V>::load(const char * filename) {
   std::pair<K, V> kv;
   std::ifstream myfile(filename);
   myfile.open(filename);
+  if (!myfile.good()) return false;
   while (myfile >> kv.first >> kv.second) {
     insert(kv);
   }
   myfile.close();
+  return true;
 }
 
 // dump
@@ -203,9 +205,7 @@ template <typename K, typename V>
 void HashTable<K, V>::dump() {
   for (int i = 0; i < theLists.size(); i++) {
     std::cout << i << "\t";
-    for (auto && itr : theLists[i]) {
-      std::cout << *itr << ":";
-    }
+    for (auto && itr : theLists[i]) { std::cout << *itr << ":"; }
     std::cout << std::endl;
   }
 }
@@ -220,4 +220,14 @@ size_t HashTable<K, V>::size() { return currentSize; }
 // Similar to the file format in the load function, each line contains
 // a pair of key-value pair, separated by a white space.
 template <typename K, typename V>
-bool HashTable<K, V>::write_to_file(const char * filename) {}
+bool HashTable<K, V>::write_to_file(const char * filename) {
+  std::ofstream myfile;
+  myfile.open(filename);
+  for (int i = 0; i < theLists.size(); i++) {
+    myfile << i << "\t";
+    for (auto && itr : theLists[i]) { myfile << *itr << ":"; }
+    myfile << std::endl;
+  }
+  myfile.close();
+  return true;
+}
