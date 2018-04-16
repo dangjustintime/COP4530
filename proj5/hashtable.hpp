@@ -223,6 +223,7 @@ template <typename K, typename V>
 bool HashTable<K, V>::write_to_file(const char * filename) {
   std::ofstream myfile;
   myfile.open(filename);
+  if (!myfile.good()) return false;
   for (int i = 0; i < theLists.size(); i++) {
     myfile << i << "\t";
     for (auto && itr : theLists[i]) { myfile << *itr << ":"; }
