@@ -139,7 +139,7 @@ bool HashTable<K, V>::match(const std::pair<K, V> & kv) const {
 template <typename K, typename V>
 bool HashTable<K, V>::insert(const std::pair<K, V> & kv) {
   auto & whichList = theLists[myhash(kv.first)];
-  if (find(begin(whichList), end(whichList), kv.second) != end(whichList)) {
+  if (std::find(begin(whichList), end(whichList), kv.second) != end(whichList)) {
     return false;
   }
   whichList.push_back(kv.second);
