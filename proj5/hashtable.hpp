@@ -189,16 +189,10 @@ bool HashTable<K, V>::load(const char * filename) {
   std::pair<K, V> kv;
   std::ifstream myfile(filename);
   myfile.open(filename);
-<<<<<<< HEAD
   if (!myfile.good()) return false;
   while (myfile >> kv.first >> kv.second) {
     insert(kv);
   }
-=======
-  while (myfile >> kv.first >> kv.second) {
-    insert(kv);
-  }   
->>>>>>> refs/remotes/origin/master
   myfile.close();
   return true;
 }
@@ -209,15 +203,11 @@ bool HashTable<K, V>::load(const char * filename) {
 // (see the provided executable for the exact output format).))
 template <typename K, typename V>
 void HashTable<K, V>::dump() {
-<<<<<<< HEAD
   for (int i = 0; i < theLists.size(); i++) {
     std::cout << i << "\t";
     for (auto && itr : theLists[i]) { std::cout << *itr << ":"; }
     std::cout << std::endl;
   }
-=======
-  
->>>>>>> refs/remotes/origin/master
 }
 
 // size
