@@ -31,7 +31,7 @@ void HashTable<K, V>::rehash() {
 // myhash
 // return the index of the vector entry where k should be stored.
 template <typename K, typename V>
-size_t HashTable<K, V>::myhash(const K & k) {
+size_t HashTable<K, V>::myhash(const K & k) const {
   static std::hash<K> hf;
   return hf(k) % theLists.size();
 }
@@ -116,7 +116,7 @@ HashTable<K, V>::~HashTable() { makeEmpty(); }
 template <typename K, typename V>
 bool HashTable<K, V>::contains(const K & k) {
   auto & thisList = theLists[myhash(k)];
-  for (auto & itr : thisList) {
+  for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
     if ((*itr).first == k) return true;
   }
   return false;
@@ -128,13 +128,13 @@ template<typename K, typename V>
 bool HashTable<K, V>::match(const std::pair<K, V> & kv) const {
   auto & thisList = theLists[myhash(kv.first)];
   for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
-    if (kv == *itr) return true;
+    if ((*itr) == kv) return true;
   }
   return false;
 }
 
 // insert
-// add  the key-value pair kv into the hash table. Don't add if kv
+// add the key-value pair kv into the hash table. Don't add if kv
 // is already in the hash table. If the key is the hash table but
 // with a different value, the value should be updated to the new one
 // with kv. Return true if kv is inserted or the value is updated;
@@ -142,13 +142,13 @@ bool HashTable<K, V>::match(const std::pair<K, V> & kv) const {
 template <typename K, typename V>
 bool HashTable<K, V>::insert(const std::pair<K, V> & kv) {
   auto & thisList = theLists[myhash(kv.first)];
-  // if pair is already in hash table
-  if (match(kv)) {
-    return false;
-  // if key is already in hash table, update value
-  } else if (contains(kv.first)) {
-    for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
-      if ((*itr).first == kv.first) (*itr).second = kv.second;
+  for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
+    // if pair is already in hash table
+    if (kv == *itr) {
+      return false;
+    // if key is already in hash table, update value
+    } else if (kv.first == (*itr).first && kv.second != (*itr).second) {
+      (*itr).second = kv.second;
       return true;
     }
   }

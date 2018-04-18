@@ -20,7 +20,6 @@
 #define HASHTABLE_H
 
 #include <algorithm>
-#include <cstdlicstdlibb>
 #include <fstream>
 #include <functional>
 #include <iostream>
@@ -56,7 +55,7 @@ class HashTable {
   private:
     void makeEmpty();
     void rehash();
-    size_t myhash(const K & k);
+    size_t myhash(const K & k) const;
     unsigned long prime_below(unsigned long n);
     void setPrimes(std::vector<unsigned long> & vprimes);
     // member data
