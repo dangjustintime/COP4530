@@ -1,4 +1,4 @@
-#include "hashtable.h"
+#include "passserver.h"
 
 int main() {
   cop4530::HashTable<std::string, std::string> hash1;
