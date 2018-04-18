@@ -1,7 +1,26 @@
+// TODO: test out all member functions
+//   member functions
+//      constructor:          WORKS
+//      destructor:
+//      contains:
+//      match:
+//      insert:
+//      insert(move version):
+//      remove:
+//      clear:
+//      load:
+//      dump:
+//      size:                 WORKS
+//      write_to_file:
+//      makeEmpty:
+//      rehash:
+//      myhash:
+
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
 #include <algorithm>
+#include <cstdlicstdlibb>
 #include <fstream>
 #include <functional>
 #include <iostream>
@@ -41,7 +60,7 @@ class HashTable {
     unsigned long prime_below(unsigned long n);
     void setPrimes(std::vector<unsigned long> & vprimes);
     // member data
-    std::vector<std::list<V>> theLists;
+    std::vector<std::list<std::pair<K,V>>> theLists;
     size_t currentSize;
 };
 
