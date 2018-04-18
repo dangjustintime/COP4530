@@ -35,6 +35,12 @@ static const unsigned int max_prime = 1301081;
 // the default_capacity is used if the initial capacity 
 // of the underlying vector of the hash table is zero. 
 static const unsigned int default_capacity = 11;
+  
+template <typename K>
+class HashObj {
+  public:
+    size_t operator()(const K & k) const;
+};
 
 template <typename K, typename V>
 class HashTable {

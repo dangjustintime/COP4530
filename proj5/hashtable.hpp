@@ -1,3 +1,5 @@
+// TODO: implement myhash properly
+
 // private interface
 
 // makeEmpty
