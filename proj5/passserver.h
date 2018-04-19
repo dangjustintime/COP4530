@@ -1,3 +1,8 @@
+#ifndef PASSSERVER_H
+#define PASSSERVER_H
+
+#include "hashtable.h"
+
 class PassServer {
   public:
     explicit PassServer(size_t size = 101);
@@ -16,3 +21,7 @@ class PassServer {
   private:
     std::string encrypt(const std::string & str);
 }
+
+#include "passserver.cpp"
+
+#endif
