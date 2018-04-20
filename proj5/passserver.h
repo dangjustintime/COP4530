@@ -1,3 +1,18 @@
+// TODO: test out all member functions
+//   member functions:
+//     constructor:
+//     destructor:
+//     load:
+//     addUser:
+//     addUser (move version):
+//     removeUser:
+//     changePassword:
+//     find:
+//     dump:
+//     size:
+//     write_to_file:
+//     encrypt:
+
 #ifndef PASSSERVER_H
 #define PASSSERVER_H
 

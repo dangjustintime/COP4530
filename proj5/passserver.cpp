@@ -1,3 +1,5 @@
+// TODO: implement encrypt member function with crypt() from GNU library 
+
 // constructor
 // create a hash table of the specified size. You just need to pass this size
 // parameter to the constructor of the HashTable. Therefore, the real hash
@@ -24,6 +26,7 @@ bool PassServer::load(const char * filename) {
 // should be encrypted before insertion. The pair should not be added if the
 // username already exists in the hash table
 bool PassServer::addUser(std::pair<std::string, std::string> & kv) {
+
   return hashtable.insert(kv);
 };
 
