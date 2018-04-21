@@ -228,8 +228,10 @@ bool HashTable<K, V>::load(const char * filename) {
 template <typename K, typename V>
 void HashTable<K, V>::dump() {
   for (auto itr1 = theLists.begin(); itr1 != theLists.end(); itr1++) {
-    for (auto itr2 = itr)
-  
+    for (auto itr2 = (*itr1).begin(); itr2 != (*itr1).end(); itr2++) {
+      std::cout << (*itr2).first << ":" << (*itr2).second << " ";
+    }
+    std::cout << std::endl;
   }
 }
 
