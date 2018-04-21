@@ -20,13 +20,11 @@ bool PassServer::load(const char * filename) {
   return hashtable.load(filename);
 };
 
-
 // addUser
 // add a new username and password. The password passed in is in plaintext, it
 // should be encrypted before insertion. The pair should not be added if the
 // username already exists in the hash table
 bool PassServer::addUser(std::pair<std::string, std::string> & kv) {
-
   return hashtable.insert(kv);
 };
 

@@ -1,4 +1,6 @@
-// TODO: implement myhash properly
+// TODO: implement mhyhash properly
+
+#include "hashtable.h"
 
 // private interface
 
@@ -105,7 +107,7 @@ void HashTable<K, V>::setPrimes(std::vector<unsigned long>& vprimes)
 // provided to you.)))
 template <typename K, typename V>
 HashTable<K, V>::HashTable(size_t size) : currentSize{ prime_below(size) } {
-  makeEmpty();
+  theLists.resize(currentSize);
 }
 
 // destructor
@@ -146,7 +148,7 @@ bool HashTable<K, V>::insert(const std::pair<K, V> & kv) {
   auto & thisList = theLists[myhash(kv.first)];
   for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
     // if pair is already in hash table
-    if (kv == *itr) {
+    if (kv == (*itr)) {
       return false;
     // if key is already in hash table, update value
     } else if (kv.first == (*itr).first && kv.second != (*itr).second) {
@@ -225,12 +227,9 @@ bool HashTable<K, V>::load(const char * filename) {
 // (see the provided executable for the exact output format).))
 template <typename K, typename V>
 void HashTable<K, V>::dump() {
-  for (int i = 0; i < theLists.size(); i++) {
-    std::cout << i << "\t";
-    for (auto & itr : theLists[i]) {
-      std::cout << " " << (*itr).first << "," << (*itr).second << " :";
-    }
-    std::cout << std::endl;
+  for (auto itr1 = theLists.begin(); itr1 != theLists.end(); itr1++) {
+    for (auto itr2 = itr)
+  
   }
 }
 

@@ -4,7 +4,7 @@
 //      destructor:
 //      contains:
 //      match:
-//      insert:
+//      insert:               WORKS
 //      insert(move version):
 //      remove:
 //      clear:
@@ -35,12 +35,6 @@ static const unsigned int max_prime = 1301081;
 // of the underlying vector of the hash table is zero. 
 static const unsigned int default_capacity = 11;
   
-template <typename K>
-class HashObj {
-  public:
-    size_t operator()(const K & k) const;
-};
-
 template <typename K, typename V>
 class HashTable {
   public:
@@ -58,6 +52,7 @@ class HashTable {
     bool write_to_file(const char * filename);
   
   private:
+    void init();
     void makeEmpty();
     void rehash();
     size_t myhash(const K & k) const;
@@ -71,6 +66,5 @@ class HashTable {
 #include "hashtable.hpp"
 
 }
-
 
 #endif
