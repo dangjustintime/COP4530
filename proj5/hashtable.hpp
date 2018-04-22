@@ -187,13 +187,12 @@ bool HashTable<K, V>::insert(std::pair<K, V> && kv) {
 template <typename K, typename V>
 bool HashTable<K, V>::remove(const K & k) {
   auto & thisList = theLists[myhash(k)];
-  // if hash table contains key
-  if (contains(k)) {
-    for (auto & itr : thisList) {
-      if ((*itr).first == k) thisList.erase(itr);
+  for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
+    if ((*itr).first == k) {
+      thisList.erase(itr);
+      --currentSize;
+      return true;
     }
-    --currentSize;
-    return true;
   }
   return false;
 }
@@ -209,13 +208,21 @@ void HashTable<K, V>::clear() { makeEmpty(); }
 // value, separated by a white space.
 template <typename K, typename V>
 bool HashTable<K, V>::load(const char * filename) {
+  std::ifstream myfile;
   std::string line;
-  std::pair<K, V> kv;
-  std::ifstream myfile(filename);
+  std::string token;
+  std::pair<std::string, std::string> kv;
   myfile.open(filename);
   if (!myfile.good()) return false;
-  while (myfile >> kv.first >> kv.second) {
-    insert(kv);
+  while (std::getline(myfile, line)) {
+    for (int i = 0; i < line.length(); i++) {
+      if (line[i] == ' ') {
+        kv.first = line.substr(0, i);
+        kv.second = line.substr(i+1);
+        insert(kv);
+        break;
+      }
+    }
   }
   myfile.close();
   return true;
@@ -228,10 +235,12 @@ bool HashTable<K, V>::load(const char * filename) {
 template <typename K, typename V>
 void HashTable<K, V>::dump() {
   for (auto itr1 = theLists.begin(); itr1 != theLists.end(); itr1++) {
-    for (auto itr2 = (*itr1).begin(); itr2 != (*itr1).end(); itr2++) {
-      std::cout << (*itr2).first << ":" << (*itr2).second << " ";
+    if ((*itr1).size() != 0) {
+      for (auto itr2 = (*itr1).begin(); itr2 != (*itr1).end(); itr2++) {
+        std::cout << (*itr2).first << " " << (*itr2).second;
+      }
+      std::cout << std::endl;
     }
-    std::cout << std::endl;
   }
 }
 
@@ -250,11 +259,11 @@ bool HashTable<K, V>::write_to_file(const char * filename) {
   myfile.open(filename);
   if (!myfile.good()) return false;
   for (int i = 0; i < theLists.size(); i++) {
-    myfile << i << "\t";
-    for (auto && itr : theLists[i]) {
-      myfile << " " << (*itr).first << "," << (*itr).second << " :";
+    if (theLists[i].size() != 0) {
+      for (auto itr = theLists[i].begin(); itr != theLists[i].end(); itr++) {
+        myfile << (*itr).first << " " << (*itr).second << std::endl;
+      }
     }
-    myfile << std::endl;
   }
   myfile.close();
   return true;

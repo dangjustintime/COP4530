@@ -5,13 +5,13 @@
 // parameter to the constructor of the HashTable. Therefore, the real hash
 // table size could be different from the parameter size (because prime_below()
 // will be called in the constructor of the HashTable).)
-PassServer::PassServer(size_t size = 101) { hashtable(size); };
+PassServer::PassServer(size_t size) : hashtable(size) {};
 
 // destructor
 // you need to decide what you should do based on your design of PassServer
 // (how you developer the adaptor class based on the adaptee hashtable).
 // In essence, we do not want to have a memory leak.
-PassServer::~PassServer() { ~hashtable(); };
+PassServer::~PassServer() { hashtable.~HashTable(); };
 
 // load
 // load a password file into the HashTable object. Each line contains a pair of
@@ -49,7 +49,7 @@ bool PassServer::removeUser(const std::string & K) {
 // password)
 bool PassServer::changePassword(const std::pair<std::string, std::string> & p,
     const std::string & newpassword) {
-  std::pair<std:string, std::string> newPair(p.first, newpassword);
+  std::pair<std::string, std::string> newPair(p.first, newpassword);
   return hashtable.insert(newPair);
 };
 

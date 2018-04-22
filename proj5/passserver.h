@@ -37,7 +37,7 @@ class PassServer {
     std::string encrypt(const std::string & str);
     // member data
     cop4530::HashTable<std::string, std::string> hashtable;
-}
+};
 
 #include "passserver.cpp"
 

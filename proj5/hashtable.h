@@ -2,19 +2,19 @@
 //   member functions
 //      constructor:          WORKS
 //      destructor:
-//      contains:
-//      match:
+//      contains:             WORKS
+//      match:                WORKS
 //      insert:               WORKS
-//      insert(move version):
-//      remove:
-//      clear:
-//      load:
-//      dump:
+//      insert(move version): WORKS
+//      remove:               WORKS
+//      clear:                WORKS
+//      load:                 WORKS
+//      dump:                 WORKS
 //      size:                 WORKS
-//      write_to_file:
-//      makeEmpty:
+//      write_to_file:        WORKS
+//      makeEmpty:            WORKS
 //      rehash:
-//      myhash:
+//      myhash:               WORKS
 
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
