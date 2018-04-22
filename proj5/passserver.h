@@ -1,22 +1,24 @@
 // TODO: test out all member functions
 //   member functions:
-//     constructor:
+//     constructor:               WORKS
 //     destructor:
-//     load:
-//     addUser:
-//     addUser (move version):
-//     removeUser:
-//     changePassword:
-//     find:
-//     dump:
-//     size:
-//     write_to_file:
+//     load:                      WORKS
+//     addUser:                   WORKS
+//     addUser (move version):    WORKS
+//     removeUser:                WORKS
+//     changePassword:            WORKS
+//     find:                      WORKS
+//     dump:                      WORKS
+//     size:                      WORKS
+//     write_to_file:             WORKS
 //     encrypt:
 
 #ifndef PASSSERVER_H
 #define PASSSERVER_H
 
 #include "hashtable.h"
+
+#include <unistd.h>
 
 class PassServer {
   public:

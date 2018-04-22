@@ -1,5 +1,7 @@
 // TODO: implement encrypt member function with crypt() from GNU library 
 
+#include "passserver.h"
+
 // constructor
 // create a hash table of the specified size. You just need to pass this size
 // parameter to the constructor of the HashTable. Therefore, the real hash
@@ -11,7 +13,7 @@ PassServer::PassServer(size_t size) : hashtable(size) {};
 // you need to decide what you should do based on your design of PassServer
 // (how you developer the adaptor class based on the adaptee hashtable).
 // In essence, we do not want to have a memory leak.
-PassServer::~PassServer() { hashtable.~HashTable(); };
+PassServer::~PassServer() {};
 
 // load
 // load a password file into the HashTable object. Each line contains a pair of
@@ -62,7 +64,7 @@ bool PassServer::find(const std::string & user) {
 // dump
 // show the structure and contents of the HashTable object to the screen. Same
 // format as the dump() function in the HashTable class template
-void PassServer::dump() { return hashtable.dump(); };
+void PassServer::dump() { hashtable.dump(); };
 
 // size
 // return the size of the HashTable (the number of username/password pairs
@@ -79,4 +81,5 @@ bool PassServer::write_to_file(const char * filename) {
 // encrypt
 // encrypt the parameter str and return the encrypted string.
 std::string PassServer::encrypt(const std::string & str) {
+  return str;
 };

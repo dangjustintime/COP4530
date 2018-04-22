@@ -1,5 +1,3 @@
-// TODO: implement mhyhash properly
-
 #include "hashtable.h"
 
 // private interface
@@ -9,8 +7,8 @@
 // clear() will call this function.
 template <typename K, typename V>
 void HashTable<K, V>::makeEmpty() {
-  for(auto & thisList: theLists) {
-    thisList.clear();
+  for(auto itr = theLists.begin(); itr != theLists.end(); itr++) {
+    (*itr).clear();
   }
 }
 
@@ -113,7 +111,10 @@ HashTable<K, V>::HashTable(size_t size) : currentSize{ prime_below(size) } {
 // destructor
 // Delete all elements in hash table.
 template <typename K, typename V>
-HashTable<K, V>::~HashTable() { makeEmpty(); }
+HashTable<K, V>::~HashTable() {
+  makeEmpty();
+  theLists.clear();
+}
 
 // contains
 // check if key k is in the hash table.
@@ -165,17 +166,17 @@ bool HashTable<K, V>::insert(const std::pair<K, V> & kv) {
 template <typename K, typename V>
 bool HashTable<K, V>::insert(std::pair<K, V> && kv) {
   auto & thisList = theLists[myhash(kv.first)];
-  // if pair is already in hash table
-  if (match(kv)) {
-    return false;
-  // if key is already in hash table, update value
-  } else if (contains(kv.first)) {
-    for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
-      if ((*itr).first == kv.first) (*itr).swap(kv);
+  for (auto itr = thisList.begin(); itr != thisList.end(); itr++) {
+    // if pair is already in hash table
+    if (kv == (*itr)) {
+      return false;
+    // if key is already in hash table, update value
+    } else if (kv.first == (*itr).first && kv.second != (*itr).second) {
+      (*itr).second = kv.second;
       return true;
     }
   }
-  thisList.push_back(std::move(kv));
+  thisList.push_back(kv);
   if (++currentSize > theLists.size()) rehash();
   return true;
 }

@@ -1,21 +1,3 @@
-// TODO: test out all member functions
-//   member functions
-//      constructor:          WORKS
-//      destructor:
-//      contains:             WORKS
-//      match:                WORKS
-//      insert:               WORKS
-//      insert(move version): WORKS
-//      remove:               WORKS
-//      clear:                WORKS
-//      load:                 WORKS
-//      dump:                 WORKS
-//      size:                 WORKS
-//      write_to_file:        WORKS
-//      makeEmpty:            WORKS
-//      rehash:
-//      myhash:               WORKS
-
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
@@ -52,7 +34,6 @@ class HashTable {
     bool write_to_file(const char * filename);
   
   private:
-    void init();
     void makeEmpty();
     void rehash();
     size_t myhash(const K & k) const;
